@@ -1,10 +1,10 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
-LABEL author="Kersten Breuer, Cancer Epigenomics, Plass Team, DKFZ 2019" \
-    maintainer="kersten-breuer@outlook.com"
-
-RUN apt-get update -qq -y --fix-missing
-RUN apt-get install -y \
+LABEL author="Michael Jochum, Baylor College of Medicine, Houston, TX, USA" \
+    maintainer="michael.jochum@bcm.edu"
+RUN apt-get update && apt-get install -y tzdata
+RUN DEBIAN_FRONTEND="noninteractive"
+RUN apt-get -y install \
     build-essential \
     wget \
     tar \
@@ -21,8 +21,8 @@ RUN apt-get install -y \
     autoconf
 
 # Tool versions:
-ENV BOWTIE2_VERSION 2.3.5.1
-ENV SAMTOOLS_VERSION 1.9
+ENV BOWTIE2_VERSION 2.4.1
+ENV SAMTOOLS_VERSION 1.10
 
 #Install Bowtie2:
 RUN cd /usr/local/ \
@@ -47,3 +47,4 @@ RUN cd /usr/local/ \
 	&& make \
 	&& make install
 ENV PATH="/usr/local/samtools/:${PATH}"
+
